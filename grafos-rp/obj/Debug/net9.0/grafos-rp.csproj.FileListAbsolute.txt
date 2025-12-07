@@ -1,0 +1,15 @@
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/bin/Debug/net9.0/grafos-rp
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/bin/Debug/net9.0/grafos-rp.deps.json
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/bin/Debug/net9.0/grafos-rp.runtimeconfig.json
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/bin/Debug/net9.0/grafos-rp.dll
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/bin/Debug/net9.0/grafos-rp.pdb
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/grafos-rp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/grafos-rp.AssemblyInfoInputs.cache
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/grafos-rp.AssemblyInfo.cs
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/grafos-rp.csproj.CoreCompileInputs.cache
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/grafos-rp.sourcelink.json
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/grafos-rp.dll
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/refint/grafos-rp.dll
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/grafos-rp.pdb
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/grafos-rp.genruntimeconfig.cache
+/Users/arthur/RiderProjects/grafos-rp/grafos-rp/obj/Debug/net9.0/ref/grafos-rp.dll
