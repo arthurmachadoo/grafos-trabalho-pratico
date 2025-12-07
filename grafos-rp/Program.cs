@@ -11,5 +11,6 @@ internal class Program
         grafo.preencheVerticesEArestas();
         Console.WriteLine($"v: {leitor.qtdVertices()} a: {leitor.qtdArestas()}");
         Console.WriteLine($"densidade: {leitor.densidade()}");
+        Console.WriteLine(grafo.representacaoGrafo());
     }
 }

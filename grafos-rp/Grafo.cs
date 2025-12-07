@@ -88,20 +88,27 @@ public class Grafo
             vertices.Add(new Vertice(i));
         }
     }
-   
     public List<string> leituraMatrizAdj()
     {
         return ["sra"];
     }
-
     public List<string> leituraListaAdj()
     {
         string[,] mat = new string[nVertices, nArestas];
         return ["sra"];
     }
-
     public double calcDensidade()
     {
         return (double)nArestas / (nVertices * (nVertices - 1));
+    }
+    public string representacaoGrafo()
+    {
+        string rep = calcDensidade() <= 0.5 ?  representacao.matriz.ToString() :  representacao.lista.ToString();
+        return rep;
+    }
+    public enum representacao
+    {
+        matriz,
+        lista
     }
 }
