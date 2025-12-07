@@ -9,8 +9,9 @@ internal class Program
         var leitor = grafo.leitor;
 
         grafo.preencheVerticesEArestas();
-        Console.WriteLine($"v: {leitor.qtdVertices()} a: {leitor.qtdArestas()}");
-        Console.WriteLine($"densidade: {leitor.densidade()}");
-        Console.WriteLine(grafo.representacaoGrafo());
+        Console.WriteLine($"Vertices: {grafo.vertices.Count}");
+        Console.WriteLine($"Arestas: {grafo.arestas.Count}");
+        grafo.representacaoGrafo();
+        
     }
 }

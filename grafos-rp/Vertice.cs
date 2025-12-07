@@ -15,12 +15,18 @@ public class Vertice
 
     public void addSucessor(int sucessor)
     {
-        sucessores.Add(sucessor);
+        if (!sucessores.Contains(sucessor))
+        {
+            sucessores.Add(sucessor);
+        }
     }
 
     public void addPredecessor(int predecessor)
     {
-        predecessores.Add(predecessor);
+        if (!predecessores.Contains(predecessor))
+        {
+            predecessores.Add(predecessor);
+        }
     }
 
     public string suc()
