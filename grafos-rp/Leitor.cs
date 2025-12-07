@@ -1,4 +1,5 @@
 using System.IO;
+using System.Reflection;
 
 namespace grafos_rp;
 
@@ -13,10 +14,18 @@ public class Leitor
 
     public string[] lerLinhas()
     {
-        if (File.Exists(caminho))
+        string caminhoAbsoluto = Path.Combine(AppContext.BaseDirectory, caminho).Replace("/bin/Debug/net9.0", "");
+        if (File.Exists(caminhoAbsoluto))
         {
-            return File.ReadAllLines(caminho);
+            return File.ReadAllLines(caminhoAbsoluto);
         }
         return [];
+    }
+
+    public string[] lerPrimeiraLinha()
+    {
+        string[] linhas = lerLinhas();
+        var linhaAtual = linhas[0].Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        return linhaAtual;
     }
 }

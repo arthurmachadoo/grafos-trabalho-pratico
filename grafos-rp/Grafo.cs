@@ -10,25 +10,30 @@ public class Grafo
     public List<Vertice> vertices = new List<Vertice>();
     public int nVertices;
     public int nArestas;
-    public string[] grafos = ["/Users/arthur/RiderProjects/grafos-rp/grafos-rp/dados/grafo01.dimacs"];
+    public string[] grafos /*["/Users/arthur/RiderProjects/grafos-rp/grafos-rp/grafo07.dimacs"]*/;
     public Leitor leitor;
     
 
-    public Grafo(/*List<Aresta>? arestas, List<Vertice> vertice, double densidade*/)
+    public Grafo()
     {
+        grafos =
+        [
+            "grafo01.dimacs",
+            "grafo02.dimacs",
+            "grafo03.dimacs",
+            "grafo04.dimacs",
+            "grafo05.dimacs",
+            "grafo06.dimacs",
+            "grafo07.dimacs"
+        ];
         leitor = new Leitor(grafos[0]);
-        // grafos =
-        // [
-        //     // "grafos-rp/dados/grafo01.dimacs", "grafos-rp/dados/grafo02.dimacs",
-        //     // "grafos-rp/dados/grafo03.dimacs", "grafos-rp/dados/grafo04.dimacs", "grafos-rp/dados/grafo05.dimacs",
-        //     // "grafos-rp/dados/grafo06.dimacs", "grafos-rp/dados/grafo07.dimacs"
-        // ];
     }
 
     public void preencheVerticesEArestas()
     {
         var linhas = leitor.lerLinhas();
-        List<int> verticesComRepeticao = new List<int>();
+        nVertices = int.Parse(leitor.lerPrimeiraLinha()[0]);
+        nArestas = int.Parse(leitor.lerPrimeiraLinha()[1]);
         
         foreach (string linha in linhas)
         {
@@ -41,12 +46,9 @@ public class Grafo
                 var fluxoMaximo = int.Parse(linhaAtual[3]);
                 
                 arestas.Add(new Aresta(pesoAresta, idVertice, idSucessor, fluxoMaximo));
-                verticesComRepeticao.Add(idVertice);
-                verticesComRepeticao.Add(idSucessor);
             }
         }
-        adicionaTodosOsVertices(verticesComRepeticao);
-        atualizaQtdDeVerticesEArestas();
+        adicionaTodosOsVertices();
         adicionaSucessoresEPredecessores();
 
         foreach (Vertice v in vertices)
@@ -77,27 +79,12 @@ public class Grafo
             }
         }
     }
-    private void adicionaTodosOsVertices(List<int> verticesComRepeticao)
+    private void adicionaTodosOsVertices()
     {
-        List<int> tmp = new List<int>();
-        foreach (int i in verticesComRepeticao)
-        {
-            if (!tmp.Contains(i))
-            {
-                tmp.Add(i);
-            }
-        }
-        tmp.Sort();
-        
-        foreach (int i in tmp)
+        for (int i = 1; i <= nVertices; i++)
         {
             vertices.Add(new Vertice(i));
         }
-    }
-    public void atualizaQtdDeVerticesEArestas()
-    {
-        nVertices = vertices.Count;
-        nArestas = arestas.Count;
     }
     public void leituraMatrizAdj()
     {
@@ -138,7 +125,7 @@ public class Grafo
     }
     public void leituraListaAdj()
     {
-        List<int> [] mat = new List<int>[500];
+        List<int> [] mat = new List<int>[nVertices];
         
         for (int i = 0; i < nVertices; i++)
         {
