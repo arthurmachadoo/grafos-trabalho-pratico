@@ -10,25 +10,14 @@ public class Grafo
     public List<Vertice> vertices = new List<Vertice>();
     public int nVertices;
     public int nArestas;
-    public string[] grafos /*["/Users/arthur/RiderProjects/grafos-rp/grafos-rp/grafo07.dimacs"]*/;
+    public string[] grafos;
     public Leitor leitor;
     
 
-    public Grafo()
+    public Grafo(string caminho)
     {
-        grafos =
-        [
-            "grafo01.dimacs",
-            "grafo02.dimacs",
-            "grafo03.dimacs",
-            "grafo04.dimacs",
-            "grafo05.dimacs",
-            "grafo06.dimacs",
-            "grafo07.dimacs"
-        ];
-        leitor = new Leitor(grafos[0]);
+        leitor = new Leitor(caminho);
     }
-
     public void preencheVerticesEArestas()
     {
         var linhas = leitor.lerLinhas();
@@ -50,16 +39,6 @@ public class Grafo
         }
         adicionaTodosOsVertices();
         adicionaSucessoresEPredecessores();
-
-        foreach (Vertice v in vertices)
-        {
-            Console.WriteLine(v.ToString());
-        }
-
-        foreach (Aresta a in arestas)
-        {
-            Console.WriteLine(a.ToString());
-        }
     }
     private void adicionaSucessoresEPredecessores()
     {
