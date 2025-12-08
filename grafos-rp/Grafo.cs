@@ -154,4 +154,110 @@ public class Grafo
         matriz,
         lista
     }
+
+    public void caminhoMinimoComDijkstra()
+    {
+        // Implementação correta do algoritmo de Dijkstra que calcula a menor
+        // distância da raiz (primeiro vértice em `vertices`) para todos os outros
+        // vértices. Atualiza o campo `distancia` de cada `Vertice` e preenche
+        // a lista `predecessores` com o predecessor imediato no caminho mínimo.
+        if (vertices == null || vertices.Count == 0)
+        {
+            Console.WriteLine("Grafo vazio: sem vértices.");
+            return;
+        }
+
+        // Inicialização
+        var distancias = new Dictionary<int, int>();
+        var anterior = new Dictionary<int, int?>();
+        var visitados = new HashSet<int>();
+
+        foreach (var v in vertices)
+        {
+            distancias[v.id] = int.MaxValue;
+            anterior[v.id] = null;
+            v.predecessores.Clear();
+            v.distancia = int.MaxValue;
+        }
+
+        int origem = vertices.First().id;
+        distancias[origem] = 0;
+        vertices.First().distancia = 0;
+
+        // Construir lista de adjacência para relaxamento eficiente
+        var adjacencia = new Dictionary<int, List<(int destino, int peso)>>();
+        foreach (var v in vertices)
+            adjacencia[v.id] = new List<(int, int)>();
+
+        foreach (var a in arestas)
+        {
+            if (!adjacencia.ContainsKey(a.vOrigemId))
+                adjacencia[a.vOrigemId] = new List<(int, int)>();
+
+            adjacencia[a.vOrigemId].Add((a.vDestinoId, a.peso));
+        }
+
+        // Laço principal de Dijkstra (versão com busca linear do vértice não visitado
+        // com menor distância). Para grafos pequenos/educacionais isto é suficiente.
+        while (visitados.Count < vertices.Count)
+        {
+            int atual = -1;
+            int melhor = int.MaxValue;
+
+            foreach (var par in distancias)
+            {
+                if (visitados.Contains(par.Key))
+                    continue;
+
+                if (par.Value < melhor)
+                {
+                    melhor = par.Value;
+                    atual = par.Key;
+                }
+            }
+
+            if (atual == -1)
+                break; // todos os vértices restantes são inacessíveis
+
+            visitados.Add(atual);
+
+            if (!adjacencia.ContainsKey(atual))
+                continue;
+
+            foreach (var arco in adjacencia[atual])
+            {
+                int idDestino = arco.destino;
+                int peso = arco.peso;
+
+                if (visitados.Contains(idDestino))
+                    continue;
+
+                // relaxamento
+                if (distancias[atual] != int.MaxValue && distancias[atual] + peso < distancias[idDestino])
+                {
+                    distancias[idDestino] = distancias[atual] + peso;
+                    anterior[idDestino] = atual;
+                }
+            }
+        }
+
+        // Atualiza os objetos Vertice com as distâncias e predecessores encontrados
+        foreach (var v in vertices)
+        {
+            v.predecessores.Clear();
+            v.distancia = distancias[v.id];
+            if (anterior[v.id].HasValue)
+                v.predecessores.Add(anterior[v.id].Value);
+        }
+
+        // Exibe resultados
+        Console.WriteLine($"Menores distâncias a partir do vértice {origem}:");
+        foreach (var v in vertices.OrderBy(x => x.id))
+        {
+            if (v.distancia == int.MaxValue)
+                Console.WriteLine($"Vértice {v.id}: distância = ∞ (inacessível)");
+            else
+                Console.WriteLine($"Vértice {v.id}: distância = {v.distancia}");
+        }
+    }
 }

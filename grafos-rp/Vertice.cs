@@ -7,10 +7,13 @@ public class Vertice
     public int id;
     public List<int> sucessores = new List<int>();
     public List<int> predecessores = new List<int>();
+    public int distancia;
+    
     
     public Vertice(int id)
     {
         this.id = id;
+        distancia = int.MaxValue;
     }
 
     public void addSucessor(int sucessor)

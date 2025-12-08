@@ -16,9 +16,10 @@ internal class Program
             "grafo07.dimacs"
         ];
 
-        Grafo grafo = new Grafo(grafos[0]);
+        Grafo grafo = new Grafo(grafos[3]);
         grafo.preencheVerticesEArestas();
         grafo.representacaoGrafo();
+        grafo.caminhoMinimoComDijkstra();
         
         // Roteamento menor custo
         // Capacidade maxima de escoamento
