@@ -154,12 +154,11 @@ public class Grafo
         matriz,
         lista
     }
-
     public void caminhoMinimoComDijkstra()
     {
         // Implementação correta do algoritmo de Dijkstra que calcula a menor
-        // distância da raiz (primeiro vértice em `vertices`) para todos os outros
-        // vértices. Atualiza o campo `distancia` de cada `Vertice` e preenche
+        // distância a partir de uma origem escolhida (por padrão: primeiro vértice
+        // em `vertices`). Atualiza o campo `distancia` de cada `Vertice` e preenche
         // a lista `predecessores` com o predecessor imediato no caminho mínimo.
         if (vertices == null || vertices.Count == 0)
         {
@@ -180,9 +179,45 @@ public class Grafo
             v.distancia = int.MaxValue;
         }
 
-        int origem = vertices.First().id;
+        // Determina a origem: se o usuário forneceu `origemId`, valida; senão usa o primeiro vértice
+        int rsp = 0;
+        int origem = 0;
+        int vDestino = nVertices+1;
+        
+        while (rsp != 1 && rsp != 2) 
+        {
+            Console.WriteLine($"Deseja escolher o vértice de origem e destino? \n1) sim \n2) nao");
+            bool ehNumerico = int.TryParse(Console.ReadLine(), out rsp);
+            
+            if (!ehNumerico)
+            {
+                Console.WriteLine("Opção inválida. Digite 1 para sim ou 2 para não.");
+            }
+            
+            if (rsp == 1)
+            { 
+                while (origem <=0 || origem > nVertices) {
+                    Console.WriteLine($"Digite o vértice de origem:");
+                    origem = int.Parse(Console.ReadLine());
+                }
+                
+                while (vDestino <=0 || vDestino > nVertices)
+                {
+                    Console.WriteLine($"Digite o vértice de destino:");
+                    vDestino = int.Parse(Console.ReadLine());
+                }
+            }
+            else if (rsp == 2)
+            {
+                origem = 1;
+                vDestino = nVertices;
+            }
+        }
+
         distancias[origem] = 0;
-        vertices.First().distancia = 0;
+        // atualiza explicitamente o objeto Vertice correspondente à origem
+        var vertOrigem = vertices.First(v => v.id == origem);
+        vertOrigem.distancia = 0;
 
         // Construir lista de adjacência para relaxamento eficiente
         var adjacencia = new Dictionary<int, List<(int destino, int peso)>>();
@@ -242,7 +277,7 @@ public class Grafo
         }
 
         // Atualiza os objetos Vertice com as distâncias e predecessores encontrados
-        foreach (var v in vertices)
+        foreach (Vertice v in vertices)
         {
             v.predecessores.Clear();
             v.distancia = distancias[v.id];
@@ -250,14 +285,24 @@ public class Grafo
                 v.predecessores.Add(anterior[v.id].Value);
         }
 
-        // Exibe resultados
+        int custoMáximo = 0;
         Console.WriteLine($"Menores distâncias a partir do vértice {origem}:");
-        foreach (var v in vertices.OrderBy(x => x.id))
+        
+        foreach (Vertice v in vertices.OrderBy(x => x.id))
         {
-            if (v.distancia == int.MaxValue)
-                Console.WriteLine($"Vértice {v.id}: distância = ∞ (inacessível)");
-            else
-                Console.WriteLine($"Vértice {v.id}: distância = {v.distancia}");
+            if (v.id <= vDestino) {
+                if (v.distancia == int.MaxValue)
+                    Console.WriteLine($"Vértice {v.id}: distância = ∞ (inacessível)");
+                else
+                {
+                    Console.WriteLine($"Vértice {v.id}: distância = {v.distancia}");
+                    custoMáximo += v.distancia;
+                }
+            }
         }
+
+        Console.WriteLine($"Custo máximo: {custoMáximo}");
+        
+        
     }
 }

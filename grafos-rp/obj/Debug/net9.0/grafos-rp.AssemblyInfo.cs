@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("grafos-rp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+655b92d24155058fb5469630a4a50d460c27c5dc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b77daf5f25dfd581063efb5bd43440bd3eb75f0e")]
 [assembly: System.Reflection.AssemblyProductAttribute("grafos-rp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("grafos-rp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
