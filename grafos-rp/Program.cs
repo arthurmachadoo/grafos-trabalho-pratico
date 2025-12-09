@@ -44,7 +44,7 @@ internal class Program
 
             if (!ehNumerico)
             {
-                Console.WriteLine("Opção inválida. Digite 1 para sim ou 2 para não.");
+                Console.WriteLine("Opção inválida. Digite um número de 1 a 7.");
             }
         }
 
@@ -80,9 +80,11 @@ internal class Program
                 break;
             default:
                 Console.WriteLine("Opção inválida. Encerrando o programa.");
-                break;
+                return;
         }
 
+        Console.WriteLine($"\nRota {rsp} carregada com sucesso!");
+        Console.WriteLine($"Vértices: {grafo.nVertices} | Arestas: {grafo.nArestas}");
 
         int operacoesRsp = 0;
         bool execucaoPrograma = true;
@@ -136,5 +138,8 @@ internal class Program
                     break;
             }
         }
+
+        Console.WriteLine("\nPrograma encerrado com sucesso!");
     }
 }
+

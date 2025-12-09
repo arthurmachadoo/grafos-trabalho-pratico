@@ -317,7 +317,6 @@ public class Grafo
             return;
         }
 
-        // Determina origem e destino: padrão é 1º e último vértice
         int origem = 1;
         int destino = nVertices;
         int opcao = 0;
@@ -355,17 +354,14 @@ public class Grafo
             }
         }
 
-        // Estrutura para armazenar capacidades residuais (grafo residual)
         var capacidades = new Dictionary<(int, int), int>();
         var fluxoAresta = new Dictionary<(int, int), int>();
 
-        // Inicializar capacidades com o fluxoMaximo de cada aresta
         foreach (var aresta in arestas)
         {
             capacidades[(aresta.vOrigemId, aresta.vDestinoId)] = aresta.fluxoMaximo;
             fluxoAresta[(aresta.vOrigemId, aresta.vDestinoId)] = 0;
 
-            // Adicionar aresta reversa com capacidade 0 (para permitir cancelamento de fluxo)
             if (!capacidades.ContainsKey((aresta.vDestinoId, aresta.vOrigemId)))
             {
                 capacidades[(aresta.vDestinoId, aresta.vOrigemId)] = 0;
@@ -373,13 +369,11 @@ public class Grafo
             }
         }
 
-        // Algoritmo de Edmonds-Karp: encontrar caminhos aumentantes usando BFS
         int fluxoMaximo = 0;
         var arestasCorte = new List<(int origem, int destino)>();
 
         while (true)
         {
-            // BFS para encontrar caminho aumentante do vértice origem para destino
             var antecessor = new Dictionary<int, int?>();
             var fila = new Queue<int>();
 
@@ -387,7 +381,7 @@ public class Grafo
                 antecessor[v.id] = null;
 
             fila.Enqueue(origem);
-            antecessor[origem] = -1; // marca como visitado
+            antecessor[origem] = -1;
 
             bool encontrouCaminho = false;
 
@@ -395,7 +389,6 @@ public class Grafo
             {
                 int atual = fila.Dequeue();
 
-                // Procurar vizinhos com capacidade residual > 0
                 foreach (var vizinho in vertices.Select(v => v.id))
                 {
                     if (antecessor[vizinho] == null && capacidades.ContainsKey((atual, vizinho)) &&
@@ -413,11 +406,9 @@ public class Grafo
                 }
             }
 
-            // Se não encontrou caminho aumentante, terminar
             if (!encontrouCaminho)
                 break;
 
-            // Encontrar o gargalo (menor capacidade residual no caminho)
             int gargalo = int.MaxValue;
             int vAtual = destino;
             while (vAtual != origem)
@@ -427,7 +418,6 @@ public class Grafo
                 vAtual = antec;
             }
 
-            // Atualizar capacidades residuais ao longo do caminho
             vAtual = destino;
             while (vAtual != origem)
             {
@@ -442,7 +432,6 @@ public class Grafo
             fluxoMaximo += gargalo;
         }
 
-        // Encontrar o corte mínimo: arestas originais que saem da origem no grafo residual
         var visitadosCorte = new HashSet<int>();
         var filaCorte = new Queue<int>();
         filaCorte.Enqueue(origem);
@@ -463,7 +452,6 @@ public class Grafo
             }
         }
 
-        // Arestas do corte mínimo: saem de vértices visitados para não-visitados
         foreach (var aresta in arestas)
         {
             if (visitadosCorte.Contains(aresta.vOrigemId) &&
@@ -473,7 +461,6 @@ public class Grafo
             }
         }
 
-        // Exibir resultados
         Console.WriteLine("\n========== RESULTADO EDMONDS-KARP ==========");
         Console.WriteLine($"Origem: {origem}, Destino: {destino}");
         Console.WriteLine($"Fluxo Máximo: {fluxoMaximo}");
