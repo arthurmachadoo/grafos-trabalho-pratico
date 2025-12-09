@@ -5,7 +5,15 @@ internal class Program
 {
     public static void Main(string[] args)
     {
-        Menu();
+        Logger.Initialize();
+        try
+        {
+            Menu();
+        }
+        finally
+        {
+            Logger.Close();
+        }
     }
 
     public static void Menu()
@@ -23,19 +31,19 @@ internal class Program
 
         Grafo grafo = null;
         
-        Console.WriteLine("Entrega Máxima Logística S.A.");
-        Console.WriteLine("CEO's: Arthur Machado Ferreira, Alan Torres de Sá e Vitor Ribeiro");
-        Console.WriteLine("=================================================================");
-        Console.WriteLine("Rotas Logísticas Disponíveis para Otimização:");
+        Logger.WriteLine("Entrega Máxima Logística S.A.");
+        Logger.WriteLine("CEO's: Arthur Machado Ferreira, Alan Torres de Sá e Vitor Ribeiro");
+        Logger.WriteLine("=================================================================");
+        Logger.WriteLine("Rotas Logísticas Disponíveis para Otimização:");
         int nRotas = 1;
         foreach (string s in grafos)
         {
-            Console.WriteLine($"Rota {nRotas}: {s}");
+            Logger.WriteLine($"Rota {nRotas}: {s}");
             nRotas++;
         }
-        Console.WriteLine("=================================================================");
+        Logger.WriteLine("=================================================================");
 
-        Console.WriteLine("Qual Rota Logistíca você gostaria de otimizar?");
+        Logger.WriteLine("Qual Rota Logistíca você gostaria de otimizar?");
         
         int rsp = 0;
         bool ehNumerico = false;
@@ -44,7 +52,7 @@ internal class Program
 
             if (!ehNumerico)
             {
-                Console.WriteLine("Opção inválida. Digite um número de 1 a 7.");
+                Logger.WriteLine("Opção inválida. Digite um número de 1 a 7.");
             }
         }
 
@@ -79,27 +87,27 @@ internal class Program
                 grafo.preencheVerticesEArestas();
                 break;
             default:
-                Console.WriteLine("Opção inválida. Encerrando o programa.");
+                Logger.WriteLine("Opção inválida. Encerrando o programa.");
                 return;
         }
 
-        Console.WriteLine($"\nRota {rsp} carregada com sucesso!");
-        Console.WriteLine($"Vértices: {grafo.nVertices} | Arestas: {grafo.nArestas}");
+        Logger.WriteLine($"\nRota {rsp} carregada com sucesso!");
+        Logger.WriteLine($"Vértices: {grafo.nVertices} | Arestas: {grafo.nArestas}");
 
         int operacoesRsp = 0;
         bool execucaoPrograma = true;
         
         while (execucaoPrograma)
         {
-            Console.WriteLine("\nDada a Rota Logística selecionada, segue as opções disponíveis para serem realizadas:");
-            Console.WriteLine("1 - Exibir Rota Logística como um Grafo");
-            Console.WriteLine("2 - Roteamento com menor custo usando Dijkstra");
-            Console.WriteLine("3 - Capacidade máxima de escoamento com Edmonds-Karp");
-            Console.WriteLine("4 - Expansao da Rede de comunicação com Custo Mínimo");
-            Console.WriteLine("5 - Agendamento de manutenções sem conflito com Welsh-Powell");
-            Console.WriteLine("6 - Rota Única de Inspeção");
-            Console.WriteLine("Digite qualquer outro número para encerrar o programa.");
-            Console.WriteLine("Escolha uma opção: ");
+            Logger.WriteLine("\nDada a Rota Logística selecionada, segue as opções disponíveis para serem realizadas:");
+            Logger.WriteLine("1 - Exibir Rota Logística como um Grafo");
+            Logger.WriteLine("2 - Roteamento com menor custo usando Dijkstra");
+            Logger.WriteLine("3 - Capacidade máxima de escoamento com Edmonds-Karp");
+            Logger.WriteLine("4 - Expansao da Rede de comunicação com Custo Mínimo");
+            Logger.WriteLine("5 - Agendamento de manutenções sem conflito com Welsh-Powell");
+            Logger.WriteLine("6 - Rota Única de Inspeção");
+            Logger.WriteLine("Digite qualquer outro número para encerrar o programa.");
+            Logger.WriteLine("Escolha uma opção: ");
 
             bool entradaValida = false;
             while (!entradaValida)
@@ -108,7 +116,7 @@ internal class Program
 
                 if (!entradaValida)
                 {
-                    Console.WriteLine("Opção inválida. Digite um número válido.");
+                    Logger.WriteLine("Opção inválida. Digite um número válido.");
                 }
             }
 
@@ -133,13 +141,13 @@ internal class Program
                     grafo.RotaUnicaDeInspecao();
                     break;
                 default:
-                    Console.WriteLine("Opção inválida. Encerrando o programa.");
+                    Logger.WriteLine("Opção inválida. Encerrando o programa.");
                     execucaoPrograma = false;
                     break;
             }
         }
 
-        Console.WriteLine("\nPrograma encerrado com sucesso!");
+        Logger.WriteLine("\nPrograma encerrado com sucesso!");
     }
 }
 

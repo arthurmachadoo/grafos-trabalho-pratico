@@ -1,0 +1,155 @@
+Entrega Máxima Logística S.A.
+CEO's: Arthur Machado Ferreira, Alan Torres de Sá e Vitor Ribeiro
+=================================================================
+Rotas Logísticas Disponíveis para Otimização:
+Rota 1: grafo01.dimacs
+Rota 2: grafo02.dimacs
+Rota 3: grafo03.dimacs
+Rota 4: grafo04.dimacs
+Rota 5: grafo05.dimacs
+Rota 6: grafo06.dimacs
+Rota 7: grafo07.dimacs
+=================================================================
+Qual Rota Logistíca você gostaria de otimizar?
+
+Rota 1 carregada com sucesso!
+Vértices: 6 | Arestas: 12
+
+Dada a Rota Logística selecionada, segue as opções disponíveis para serem realizadas:
+1 - Exibir Rota Logística como um Grafo
+2 - Roteamento com menor custo usando Dijkstra
+3 - Capacidade máxima de escoamento com Edmonds-Karp
+4 - Expansao da Rede de comunicação com Custo Mínimo
+5 - Agendamento de manutenções sem conflito com Welsh-Powell
+6 - Rota Única de Inspeção
+Digite qualquer outro número para encerrar o programa.
+Escolha uma opção: 
+Deseja escolher o vértice de origem e destino? 
+1) sim 
+2) nao
+Menores distâncias a partir do vértice 1:
+Vértice 1: distância = 0
+Vértice 2: distância = 2
+Vértice 3: distância = 3
+Vértice 4: distância = 1
+Vértice 5: distância = 3
+Vértice 6: distância = 6
+Custo máximo: 15
+
+Dada a Rota Logística selecionada, segue as opções disponíveis para serem realizadas:
+1 - Exibir Rota Logística como um Grafo
+2 - Roteamento com menor custo usando Dijkstra
+3 - Capacidade máxima de escoamento com Edmonds-Karp
+4 - Expansao da Rede de comunicação com Custo Mínimo
+5 - Agendamento de manutenções sem conflito com Welsh-Powell
+6 - Rota Única de Inspeção
+Digite qualquer outro número para encerrar o programa.
+Escolha uma opção: 
+
+Deseja escolher origem e destino para o fluxo máximo?
+1) Sim (escolher vértices)
+2) Não (usar 1º e último vértice)
+
+========== RESULTADO EDMONDS-KARP ==========
+Origem: 1, Destino: 6
+Fluxo Máximo: 33
+
+Corte Mínimo (4 arestas):
+  Aresta: 1 → 2 (Capacidade: 10)
+  Aresta: 1 → 3 (Capacidade: 7)
+  Aresta: 1 → 4 (Capacidade: 8)
+  Aresta: 5 → 6 (Capacidade: 8)
+
+Capacidade Total do Corte: 33
+==========================================
+
+
+Dada a Rota Logística selecionada, segue as opções disponíveis para serem realizadas:
+1 - Exibir Rota Logística como um Grafo
+2 - Roteamento com menor custo usando Dijkstra
+3 - Capacidade máxima de escoamento com Edmonds-Karp
+4 - Expansao da Rede de comunicação com Custo Mínimo
+5 - Agendamento de manutenções sem conflito com Welsh-Powell
+6 - Rota Única de Inspeção
+Digite qualquer outro número para encerrar o programa.
+Escolha uma opção: 
+
+========== ALGORITMO DE KRUSKAL ==========
+
+Arvore Geradora Mínima (AGM) - 5 arestas:
+  1 → 4 (Peso: 1)
+  1 → 2 (Peso: 2)
+  4 → 5 (Peso: 2)
+  1 → 3 (Peso: 3)
+  5 → 6 (Peso: 4)
+
+Custo Total da AGM: 12
+✓ Árvore geradora mínima encontrada com sucesso!
+========================================
+
+
+Dada a Rota Logística selecionada, segue as opções disponíveis para serem realizadas:
+1 - Exibir Rota Logística como um Grafo
+2 - Roteamento com menor custo usando Dijkstra
+3 - Capacidade máxima de escoamento com Edmonds-Karp
+4 - Expansao da Rede de comunicação com Custo Mínimo
+5 - Agendamento de manutenções sem conflito com Welsh-Powell
+6 - Rota Única de Inspeção
+Digite qualquer outro número para encerrar o programa.
+Escolha uma opção: 
+
+========== AGENDAMENTO WELSH-POWELL ==========
+
+✓ Coloração de Vértices (Agendamento de Rotas):
+Número Mínimo de Turnos: 3
+
+Alocação de Rotas por Turno:
+
+  Turno 1: 1, 6 (Total: 2 rotas)
+
+  Turno 2: 2, 4 (Total: 2 rotas)
+
+  Turno 3: 3, 5 (Total: 2 rotas)
+
+✓ Coloração válida: Nenhum conflito de recursos detectado!
+
+============================================
+
+
+Dada a Rota Logística selecionada, segue as opções disponíveis para serem realizadas:
+1 - Exibir Rota Logística como um Grafo
+2 - Roteamento com menor custo usando Dijkstra
+3 - Capacidade máxima de escoamento com Edmonds-Karp
+4 - Expansao da Rede de comunicação com Custo Mínimo
+5 - Agendamento de manutenções sem conflito com Welsh-Powell
+6 - Rota Única de Inspeção
+Digite qualquer outro número para encerrar o programa.
+Escolha uma opção: 
+
+========== ROTA UNICA DE INSPECAO ==========
+
+----- CENÁRIO A: Percurso de Rotas (Caminho Euleriano) -----
+
+✓ CIRCUITO EULERIANO EXISTE!
+
+  Circuito Euleriano encontrado (13 rotas):
+  Sequência de hubs: 1 → 5 → 4 → 3 → 2 → 6 → 5 → 3 → 6 → 4 → 6 → 5 → 6
+
+----- CENÁRIO B: Percurso de Hubs (Caminho Hamiltoniano) -----
+
+Procurando Circuito Hamiltoniano...
+
+✗ NÃO EXISTE CIRCUITO HAMILTONIANO!
+
+============================================
+
+
+Dada a Rota Logística selecionada, segue as opções disponíveis para serem realizadas:
+1 - Exibir Rota Logística como um Grafo
+2 - Roteamento com menor custo usando Dijkstra
+3 - Capacidade máxima de escoamento com Edmonds-Karp
+4 - Expansao da Rede de comunicação com Custo Mínimo
+5 - Agendamento de manutenções sem conflito com Welsh-Powell
+6 - Rota Única de Inspeção
+Digite qualquer outro número para encerrar o programa.
+Escolha uma opção: 

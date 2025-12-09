@@ -95,18 +95,18 @@ public class Grafo
             matriz[a.vOrigemId, a.vDestinoId] = $"{a.peso}";
         }
 
-        Console.WriteLine("---- MATRIZ DE ADJACÊNCIA ----");
+        Logger.WriteLine("---- MATRIZ DE ADJACÊNCIA ----");
         for (int i = 0; i <= nVertices; i++)
         {
             for (int j = 0; j <= nVertices; j++)
             {
-                Console.Write($"{matriz[i, j]} ");
+                Logger.Write($"{matriz[i, j]} ");
             }
 
-            Console.WriteLine();
+            Logger.WriteLine();
         }
 
-        Console.WriteLine("------------------------------");
+        Logger.WriteLine("------------------------------");
     }
 
     public void leituraListaAdj()
@@ -125,19 +125,19 @@ public class Grafo
             mat[a.vOrigemId - 1].Add(a.vDestinoId);
         }
 
-        Console.WriteLine("---- LISTA DE ADJACÊNCIA ----");
+        Logger.WriteLine("---- LISTA DE ADJACÊNCIA ----");
         for (int i = 0; i < nVertices; i++)
         {
             List<int> lista = mat[i];
             foreach (int v in lista)
             {
-                Console.Write($"{v} ");
+                Logger.Write($"{v} ");
             }
 
-            Console.WriteLine();
+            Logger.WriteLine();
         }
 
-        Console.WriteLine("-----------------------------");
+        Logger.WriteLine("-----------------------------");
     }
 
     public double calcDensidade()
@@ -148,8 +148,8 @@ public class Grafo
     public void representacaoGrafo()
     {
         string rep = calcDensidade() <= 0.5 ? representacao.lista.ToString() : representacao.matriz.ToString();
-        Console.WriteLine("------------------------------");
-        Console.WriteLine(
+        Logger.WriteLine("------------------------------");
+        Logger.WriteLine(
             $"Por conta da densidade do grafo ser igual a {calcDensidade()}, \nutilizamos a seguinte estrutura para representá-lo:");
 
         if (rep == representacao.lista.ToString())
@@ -172,7 +172,7 @@ public class Grafo
     {
         if (vertices == null || vertices.Count == 0)
         {
-            Console.WriteLine("Grafo vazio: sem vértices.");
+            Logger.WriteLine("Grafo vazio: sem vértices.");
             return;
         }
 
@@ -194,25 +194,25 @@ public class Grafo
 
         while (rsp != 1 && rsp != 2)
         {
-            Console.WriteLine($"Deseja escolher o vértice de origem e destino? \n1) sim \n2) nao");
+            Logger.WriteLine($"Deseja escolher o vértice de origem e destino? \n1) sim \n2) nao");
             bool ehNumerico = int.TryParse(Console.ReadLine(), out rsp);
 
             if (!ehNumerico)
             {
-                Console.WriteLine("Opção inválida. Digite 1 para sim ou 2 para não.");
+                Logger.WriteLine("Opção inválida. Digite 1 para sim ou 2 para não.");
             }
 
             if (rsp == 1)
             {
                 while (origem <= 0 || origem > nVertices)
                 {
-                    Console.WriteLine($"Digite o vértice de origem:");
+                    Logger.WriteLine($"Digite o vértice de origem:");
                     origem = int.Parse(Console.ReadLine());
                 }
 
                 while (vDestino <= 0 || vDestino > nVertices)
                 {
-                    Console.WriteLine($"Digite o vértice de destino:");
+                    Logger.WriteLine($"Digite o vértice de destino:");
                     vDestino = int.Parse(Console.ReadLine());
                 }
             }
@@ -289,23 +289,23 @@ public class Grafo
         }
 
         int custoMáximo = 0;
-        Console.WriteLine($"Menores distâncias a partir do vértice {origem}:");
+        Logger.WriteLine($"Menores distâncias a partir do vértice {origem}:");
 
         foreach (Vertice v in vertices.OrderBy(x => x.id))
         {
             if (v.id <= vDestino)
             {
                 if (v.distancia == int.MaxValue)
-                    Console.WriteLine($"Vértice {v.id}: distância = ∞ (inacessível)");
+                    Logger.WriteLine($"Vértice {v.id}: distância = ∞ (inacessível)");
                 else
                 {
-                    Console.WriteLine($"Vértice {v.id}: distância = {v.distancia}");
+                    Logger.WriteLine($"Vértice {v.id}: distância = {v.distancia}");
                     custoMáximo += v.distancia;
                 }
             }
         }
 
-        Console.WriteLine($"Custo máximo: {custoMáximo}");
+        Logger.WriteLine($"Custo máximo: {custoMáximo}");
     }
 
     public void fluxoMaximoComEdmondsKarp()
@@ -313,7 +313,7 @@ public class Grafo
 
         if (vertices == null || vertices.Count == 0)
         {
-            Console.WriteLine("Grafo vazio: sem vértices.");
+            Logger.WriteLine("Grafo vazio: sem vértices.");
             return;
         }
 
@@ -323,15 +323,15 @@ public class Grafo
 
         while (opcao != 1 && opcao != 2)
         {
-            Console.WriteLine("\nDeseja escolher origem e destino para o fluxo máximo?");
-            Console.WriteLine("1) Sim (escolher vértices)");
-            Console.WriteLine("2) Não (usar 1º e último vértice)");
+            Logger.WriteLine("\nDeseja escolher origem e destino para o fluxo máximo?");
+            Logger.WriteLine("1) Sim (escolher vértices)");
+            Logger.WriteLine("2) Não (usar 1º e último vértice)");
 
             bool ehNumerico = int.TryParse(Console.ReadLine(), out opcao);
 
             if (!ehNumerico || (opcao != 1 && opcao != 2))
             {
-                Console.WriteLine("Opção inválida. Digite 1 ou 2.");
+                Logger.WriteLine("Opção inválida. Digite 1 ou 2.");
                 opcao = 0;
                 continue;
             }
@@ -340,14 +340,14 @@ public class Grafo
             {
                 while (origem <= 0 || origem > nVertices)
                 {
-                    Console.WriteLine("Digite o vértice de origem:");
+                    Logger.WriteLine("Digite o vértice de origem:");
                     if (!int.TryParse(Console.ReadLine(), out origem))
                         origem = 0;
                 }
 
                 while (destino <= 0 || destino > nVertices)
                 {
-                    Console.WriteLine("Digite o vértice de destino:");
+                    Logger.WriteLine("Digite o vértice de destino:");
                     if (!int.TryParse(Console.ReadLine(), out destino))
                         destino = 0;
                 }
@@ -461,21 +461,21 @@ public class Grafo
             }
         }
 
-        Console.WriteLine("\n========== RESULTADO EDMONDS-KARP ==========");
-        Console.WriteLine($"Origem: {origem}, Destino: {destino}");
-        Console.WriteLine($"Fluxo Máximo: {fluxoMaximo}");
-        Console.WriteLine($"\nCorte Mínimo ({arestasCorte.Count} arestas):");
+        Logger.WriteLine("\n========== RESULTADO EDMONDS-KARP ==========");
+        Logger.WriteLine($"Origem: {origem}, Destino: {destino}");
+        Logger.WriteLine($"Fluxo Máximo: {fluxoMaximo}");
+        Logger.WriteLine($"\nCorte Mínimo ({arestasCorte.Count} arestas):");
 
         int somaCapacidades = 0;
         foreach (var (orig, dest) in arestasCorte)
         {
             var arestaInfo = arestas.First(a => a.vOrigemId == orig && a.vDestinoId == dest);
-            Console.WriteLine($"  Aresta: {orig} → {dest} (Capacidade: {arestaInfo.fluxoMaximo})");
+            Logger.WriteLine($"  Aresta: {orig} → {dest} (Capacidade: {arestaInfo.fluxoMaximo})");
             somaCapacidades += arestaInfo.fluxoMaximo;
         }
 
-        Console.WriteLine($"\nCapacidade Total do Corte: {somaCapacidades}");
-        Console.WriteLine("==========================================\n");
+        Logger.WriteLine($"\nCapacidade Total do Corte: {somaCapacidades}");
+        Logger.WriteLine("==========================================\n");
     }
 
     public void custoMínimo()
@@ -495,11 +495,11 @@ public class Grafo
     {
         if (vertices == null || vertices.Count == 0)
         {
-            Console.WriteLine("Grafo vazio: sem vértices.");
+            Logger.WriteLine("Grafo vazio: sem vértices.");
             return;
         }
 
-        Console.WriteLine("\n========== ALGORITMO DE KRUSKAL ==========");
+        Logger.WriteLine("\n========== ALGORITMO DE KRUSKAL ==========");
 
         var arestaOrdenada = arestas.OrderBy(a => a.peso).ToList();
 
@@ -549,24 +549,24 @@ public class Grafo
             }
         }
 
-        Console.WriteLine($"\nArvore Geradora Mínima (AGM) - {agmArestas.Count} arestas:");
+        Logger.WriteLine($"\nArvore Geradora Mínima (AGM) - {agmArestas.Count} arestas:");
         foreach (var aresta in agmArestas)
         {
-            Console.WriteLine($"  {aresta.vOrigemId} → {aresta.vDestinoId} (Peso: {aresta.peso})");
+            Logger.WriteLine($"  {aresta.vOrigemId} → {aresta.vDestinoId} (Peso: {aresta.peso})");
         }
 
-        Console.WriteLine($"\nCusto Total da AGM: {custoTotalAGM}");
+        Logger.WriteLine($"\nCusto Total da AGM: {custoTotalAGM}");
 
         if (agmArestas.Count == vertices.Count - 1)
         {
-            Console.WriteLine("✓ Árvore geradora mínima encontrada com sucesso!");
+            Logger.WriteLine("✓ Árvore geradora mínima encontrada com sucesso!");
         }
         else
         {
-            Console.WriteLine("✗ Grafo desconectado: não foi possível criar árvore geradora completa.");
+            Logger.WriteLine("✗ Grafo desconectado: não foi possível criar árvore geradora completa.");
         }
 
-        Console.WriteLine("========================================\n");
+        Logger.WriteLine("========================================\n");
     }
 
 
@@ -574,11 +574,11 @@ public class Grafo
     {
         if (vertices == null || vertices.Count == 0)
         {
-            Console.WriteLine("Grafo vazio: sem vértices.");
+            Logger.WriteLine("Grafo vazio: sem vértices.");
             return;
         }
 
-        Console.WriteLine("\n========== ALGORITMO DE PRIM ==========");
+        Logger.WriteLine("\n========== ALGORITMO DE PRIM ==========");
 
         var naArvore = new HashSet<int>();
         var agmArestas = new List<Aresta>();
@@ -618,35 +618,35 @@ public class Grafo
                 naArvore.Add(arestaMinima.vOrigemId);
         }
 
-        Console.WriteLine($"\nArvore Geradora Mínima (AGM) - {agmArestas.Count} arestas:");
+        Logger.WriteLine($"\nArvore Geradora Mínima (AGM) - {agmArestas.Count} arestas:");
         foreach (var aresta in agmArestas)
         {
-            Console.WriteLine($"  {aresta.vOrigemId} → {aresta.vDestinoId} (Peso: {aresta.peso})");
+            Logger.WriteLine($"  {aresta.vOrigemId} → {aresta.vDestinoId} (Peso: {aresta.peso})");
         }
 
-        Console.WriteLine($"\nCusto Total da AGM: {custoTotalAGM}");
+        Logger.WriteLine($"\nCusto Total da AGM: {custoTotalAGM}");
 
         if (agmArestas.Count == vertices.Count - 1)
         {
-            Console.WriteLine("✓ Árvore geradora mínima encontrada com sucesso!");
+            Logger.WriteLine("✓ Árvore geradora mínima encontrada com sucesso!");
         }
         else
         {
-            Console.WriteLine("✗ Grafo desconectado: não foi possível criar árvore geradora completa.");
+            Logger.WriteLine("✗ Grafo desconectado: não foi possível criar árvore geradora completa.");
         }
 
-        Console.WriteLine("=====================================\n");
+        Logger.WriteLine("=====================================\n");
     }
 
     public void agendamentoComWelshPowell()
     {
         if (vertices == null || vertices.Count == 0)
         {
-            Console.WriteLine("Grafo vazio: sem vértices (rotas).");
+            Logger.WriteLine("Grafo vazio: sem vértices (rotas).");
             return;
         }
 
-        Console.WriteLine("\n========== AGENDAMENTO WELSH-POWELL ==========");
+        Logger.WriteLine("\n========== AGENDAMENTO WELSH-POWELL ==========");
 
         var grauVertice = new Dictionary<int, int>();
 
@@ -725,9 +725,9 @@ public class Grafo
 
         int numTurnos = coloracao.Values.Max() + 1;
 
-        Console.WriteLine($"\n✓ Coloração de Vértices (Agendamento de Rotas):");
-        Console.WriteLine($"Número Mínimo de Turnos: {numTurnos}");
-        Console.WriteLine($"\nAlocação de Rotas por Turno:");
+        Logger.WriteLine($"\n✓ Coloração de Vértices (Agendamento de Rotas):");
+        Logger.WriteLine($"Número Mínimo de Turnos: {numTurnos}");
+        Logger.WriteLine($"\nAlocação de Rotas por Turno:");
 
         for (int turno = 0; turno < numTurnos; turno++)
         {
@@ -737,7 +737,7 @@ public class Grafo
                 .OrderBy(id => id)
                 .ToList();
 
-            Console.WriteLine(
+            Logger.WriteLine(
                 $"\n  Turno {turno + 1}: {string.Join(", ", rotasNoTurno)} (Total: {rotasNoTurno.Count} rotas)");
         }
 
@@ -747,34 +747,34 @@ public class Grafo
             if (coloracao[aresta.vOrigemId] == coloracao[aresta.vDestinoId])
             {
                 coloracaoValida = false;
-                Console.WriteLine($"✗ ERRO: Aresta {aresta.vOrigemId} → {aresta.vDestinoId} tem vértices mesma cor!");
+                Logger.WriteLine($"✗ ERRO: Aresta {aresta.vOrigemId} → {aresta.vDestinoId} tem vértices mesma cor!");
                 break;
             }
         }
 
         if (coloracaoValida)
-            Console.WriteLine($"\n✓ Coloração válida: Nenhum conflito de recursos detectado!");
+            Logger.WriteLine($"\n✓ Coloração válida: Nenhum conflito de recursos detectado!");
 
-        Console.WriteLine("\n============================================\n");
+        Logger.WriteLine("\n============================================\n");
     }
 
     public void RotaUnicaDeInspecao()
     {
         if (vertices == null || vertices.Count == 0)
         {
-            Console.WriteLine("Grafo vazio: sem vértices.");
+            Logger.WriteLine("Grafo vazio: sem vértices.");
             return;
         }
 
-        Console.WriteLine("\n========== ROTA UNICA DE INSPECAO ==========");
+        Logger.WriteLine("\n========== ROTA UNICA DE INSPECAO ==========");
 
-        Console.WriteLine("\n----- CENÁRIO A: Percurso de Rotas (Caminho Euleriano) -----");
+        Logger.WriteLine("\n----- CENÁRIO A: Percurso de Rotas (Caminho Euleriano) -----");
         VerificarEEncontrarCircuitoEuleriano();
 
-        Console.WriteLine("\n----- CENÁRIO B: Percurso de Hubs (Caminho Hamiltoniano) -----");
+        Logger.WriteLine("\n----- CENÁRIO B: Percurso de Hubs (Caminho Hamiltoniano) -----");
         VerificarEEncontrarCircuitoHamiltoniano();
 
-        Console.WriteLine("\n============================================\n");
+        Logger.WriteLine("\n============================================\n");
     }
 
     private void VerificarEEncontrarCircuitoEuleriano()
@@ -804,33 +804,33 @@ public class Grafo
 
         if (verticesGrauImpar == 0)
         {
-            Console.WriteLine("\n✓ CIRCUITO EULERIANO EXISTE!");
+            Logger.WriteLine("\n✓ CIRCUITO EULERIANO EXISTE!");
             var circuito = EncontrarCircuitoEulerianoOtimizado();
             if (circuito != null && circuito.Count > 0)
             {
-                Console.WriteLine($"\n  Circuito Euleriano encontrado ({circuito.Count} rotas):");
-                Console.Write("  Sequência de hubs: ");
+                Logger.WriteLine($"\n  Circuito Euleriano encontrado ({circuito.Count} rotas):");
+                Logger.Write("  Sequência de hubs: ");
                 int limite = Math.Min(50, circuito.Count);
                 for (int i = 0; i < limite; i++)
                 {
-                    Console.Write(circuito[i]);
+                    Logger.Write(circuito[i].ToString());
                     if (i < limite - 1)
-                        Console.Write(" → ");
+                        Logger.Write(" → ");
                 }
                 if (circuito.Count > 50)
-                    Console.Write(" → ... (circuito completo)");
-                Console.WriteLine();
+                    Logger.Write(" → ... (circuito completo)");
+                Logger.WriteLine();
             }
         }
         else if (verticesGrauImpar == 2)
         {
-            Console.WriteLine("\n⚠ CAMINHO EULERIANO EXISTE!");
-            Console.WriteLine($"  Vértices com grau ímpar: {string.Join(", ", verticesImpares)}");
+            Logger.WriteLine("\n⚠ CAMINHO EULERIANO EXISTE!");
+            Logger.WriteLine($"  Vértices com grau ímpar: {string.Join(", ", verticesImpares)}");
         }
         else
         {
-            Console.WriteLine("\n✗ NÃO EXISTE CIRCUITO OU CAMINHO EULERIANO!");
-            Console.WriteLine($"  {verticesGrauImpar} vértices com grau ímpar");
+            Logger.WriteLine("\n✗ NÃO EXISTE CIRCUITO OU CAMINHO EULERIANO!");
+            Logger.WriteLine($"  {verticesGrauImpar} vértices com grau ímpar");
         }
     }
 
@@ -877,7 +877,7 @@ public class Grafo
 
     private void VerificarEEncontrarCircuitoHamiltoniano()
     {
-        Console.WriteLine("\nProcurando Circuito Hamiltoniano...");
+        Logger.WriteLine("\nProcurando Circuito Hamiltoniano...");
         
         int verticeInicio = vertices.First().id;
         bool[] visitados = new bool[nVertices + 1];
@@ -885,22 +885,22 @@ public class Grafo
 
         if (BuscaHamiltoniana(verticeInicio, verticeInicio, visitados, caminho))
         {
-            Console.WriteLine("\n✓ CIRCUITO HAMILTONIANO EXISTE!");
-            Console.WriteLine($"  Circuito encontrado ({caminho.Count} vértices):");
-            Console.Write("  Sequência de hubs: ");
+            Logger.WriteLine("\n✓ CIRCUITO HAMILTONIANO EXISTE!");
+            Logger.WriteLine($"  Circuito encontrado ({caminho.Count} vértices):");
+            Logger.Write("  Sequência de hubs: ");
             for (int i = 0; i < caminho.Count; i++)
             {
-                Console.Write(caminho[i]);
+                Logger.Write(caminho[i].ToString());
                 if (i < caminho.Count - 1)
-                    Console.Write(" → ");
+                    Logger.Write(" → ");
                 else
-                    Console.Write(" → " + verticeInicio);
+                    Logger.Write(" → " + verticeInicio);
             }
-            Console.WriteLine();
+            Logger.WriteLine();
         }
         else
         {
-            Console.WriteLine("\n✗ NÃO EXISTE CIRCUITO HAMILTONIANO!");
+            Logger.WriteLine("\n✗ NÃO EXISTE CIRCUITO HAMILTONIANO!");
         }
     }
 
